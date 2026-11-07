@@ -1,0 +1,8 @@
+{
+  "name": "larashairport-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "stripe": "latest"
+  }
+}
