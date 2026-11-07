@@ -317,7 +317,7 @@ function closeLightbox(){document.getElementById('lightbox').classList.remove('s
 function lbStep(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;showLightbox()}
 document.addEventListener('click',e=>{const im=e.target.closest&&e.target.closest('.product-visual img');if(!im)return;lbImgs=[...im.parentElement.querySelectorAll('img')];lbIdx=lbImgs.indexOf(im);showLightbox();document.getElementById('lightbox').classList.add('show')});
 document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('show'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')lbStep(-1);if(e.key==='ArrowRight')lbStep(1)});
-const STRIPE_PUBLISHABLE_KEY='pk_test_...'; // TODO: replace with your publishable key (see STRIPE_INTEGRATION_TODO.md)
+const STRIPE_PUBLISHABLE_KEY='pk_test_51UYXNF0sHybnJeHMAo28Zjgl6p3nFWTTPJ4sVrA9C3500b1oHA1hT3INI5ppOfxa11JeLjU1uEpKBtasfODvIxBV00rnAwm7wL'; // TODO: replace with your publishable key (see STRIPE_INTEGRATION_TODO.md)
 let stripeCheckoutStarted=false;
 function closeCheckout(){document.getElementById('checkoutModal').classList.remove('show')}
 async function openCheckout(){
