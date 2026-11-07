@@ -213,6 +213,7 @@ footer small{color:#ffb4d2}
   <div class="modal">
    <div class="modal-top"><div class="eyebrow">Secure checkout</div><button class="close" onclick="closeCheckout()">&times;</button></div>
    <div id="checkout-form"></div>
+   <div id="checkout-msg" style="margin-top:12px;font-size:14px;font-weight:600"></div>
   </div>
  </div>
  <div class="modal-backdrop" id="priceModal" onclick="if(event.target===this)closePrices()">
@@ -334,8 +335,13 @@ async function openCheckout(){
   const loadActionsResult=await checkout.loadActions();
   if(loadActionsResult.type==='success'){
    form.on('confirm',async(event)=>{
-    try{await loadActionsResult.actions.confirm({formConfirmEvent:event})}
-    catch(error){console.error('Payment confirmation error:',error)}
+    const msg=document.getElementById('checkout-msg');msg.textContent='Processing payment...';msg.style.color='#30313d';
+    try{
+     const result=await loadActionsResult.actions.confirm({formConfirmEvent:event});
+     console.log('Stripe confirm result:',result);
+     if(result&&result.type==='error'){msg.style.color='#df1b41';msg.textContent=(result.error&&result.error.message)||'The payment could not be completed.'}
+     else{msg.style.color='#00a152';msg.textContent='Payment received. Thank you!'}
+    }catch(error){console.error('Payment confirmation error:',error);msg.style.color='#df1b41';msg.textContent='Payment error: '+(error&&error.message?error.message:'please try again.')}
    });
   }
  }catch(err){console.error('Checkout error:',err);showToast('Checkout is not set up yet.');closeCheckout()}
