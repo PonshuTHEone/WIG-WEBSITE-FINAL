@@ -1,4 +1,5 @@
-const { Stripe } = require("stripe");
+const stripeModule = require("stripe");
+const Stripe = stripeModule.Stripe || stripeModule.default || stripeModule;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -18,7 +19,7 @@ exports.handler = async (event) => {
     submit_type: "auto",
     integration_identifier: "custom_embedded_web_0001",
     mode,
-    line_items: [{ price: "price_...", quantity: 1 }], // TODO: your real Stripe Price ID
+    line_items: [{ price: "price_1UZHpF0sHybnJeHMF5Y3XDgK", quantity: 1 }], // test product; replace with real Price IDs
   };
   if (mode === "subscription") {
     sessionParams.payment_method_collection = "always";
