@@ -318,6 +318,11 @@ function closeLightbox(){document.getElementById('lightbox').classList.remove('s
 function lbStep(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;showLightbox()}
 document.addEventListener('click',e=>{const im=e.target.closest&&e.target.closest('.product-visual img');if(!im)return;lbImgs=[...im.parentElement.querySelectorAll('img')];lbIdx=lbImgs.indexOf(im);showLightbox();document.getElementById('lightbox').classList.add('show')});
 document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('show'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')lbStep(-1);if(e.key==='ArrowRight')lbStep(1)});
+if(/[?&]checkout=success/.test(location.search)){
+ const b=document.createElement('div');b.textContent='Payment received. Thank you for your order! (click to close)';
+ b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:300;background:#00a152;color:#fff;text-align:center;padding:16px;font:600 15px sans-serif;cursor:pointer';
+ b.onclick=()=>b.remove();document.body.appendChild(b);history.replaceState(null,'',location.pathname);
+}
 const STRIPE_PUBLISHABLE_KEY='pk_test_51UYXNF0sHybnJeHMAo28Zjgl6p3nFWTTPJ4sVrA9C3500b1oHA1hT3INI5ppOfxa11JeLjU1uEpKBtasfODvIxBV00rnAwm7wL'; // TODO: replace with your publishable key (see STRIPE_INTEGRATION_TODO.md)
 let stripeCheckoutStarted=false;
 function closeCheckout(){document.getElementById('checkoutModal').classList.remove('show')}
@@ -337,7 +342,7 @@ async function openCheckout(){
    form.on('confirm',async(event)=>{
     const msg=document.getElementById('checkout-msg');msg.textContent='Processing payment...';msg.style.color='#30313d';
     try{
-     const result=await loadActionsResult.actions.confirm({formConfirmEvent:event});
+     const result=await loadActionsResult.actions.confirm({formConfirmEvent:event,returnUrl:window.location.origin+'/?checkout=success'});
      console.log('Stripe confirm result:',result);
      if(result&&result.type==='error'){msg.style.color='#df1b41';msg.textContent=(result.error&&result.error.message)||'The payment could not be completed.'}
      else{msg.style.color='#00a152';msg.textContent='Payment received. Thank you!'}
