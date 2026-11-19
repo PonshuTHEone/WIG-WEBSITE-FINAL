@@ -60,7 +60,7 @@ exports.handler = async (event) => {
     billing_address_collection: "required",
     phone_number_collection: { enabled: true },
     automatic_tax: { enabled: true },
-    submit_type: "required",
+    submit_type: "auto",
     integration_identifier: "custom_embedded_web_0001",
     mode,
     line_items,
