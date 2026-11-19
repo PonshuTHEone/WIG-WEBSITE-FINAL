@@ -147,6 +147,205 @@ footer small{color:#ffb4d2}
 .categories{grid-template-columns:repeat(4,1fr)}
 @media(max-width:1000px){.categories{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.categories{grid-template-columns:1fr}}
+
+/* Accessibility and product-gallery enhancements — 2026-11-19 */
+:root { --berry:#a91657; --muted:#574b51; }
+html { font-size:100%; }
+body { line-height:1.5; }
+/* Two generous product cards per row instead of three cramped cards. */
+#products.grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+#products .product { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0; align-items:stretch; min-width:0; }
+#products .product-visual,
+#products .product:nth-child(3n+2) .product-visual,
+#products .product:nth-child(3n) .product-visual {
+  background:#f5f5f5; min-height:350px; padding:48px 14px 30px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr)); gap:10px;
+}
+#products .product-visual img {
+  display:block; width:100%; height:125px; min-width:0;
+  padding:3px; object-fit:contain; background:#fff;
+  mix-blend-mode:normal; border-radius:8px;
+}
+#products .product-info { padding:22px; min-width:0; }
+#products .product h3 { font-size:clamp(1.5rem,2vw,1.875rem); line-height:1.25; overflow-wrap:anywhere; }
+#products .product-desc { font-size:1rem; line-height:1.65; min-height:0; }
+#products .product-type { font-size:.875rem; letter-spacing:.06em; }
+#products .price { font-size:1.125rem; line-height:1.4; }
+#products .product-bottom { align-items:flex-start; flex-wrap:wrap; }
+#products .small-btn { min-height:48px; min-width:48px; padding:12px 18px; font-size:1rem; }
+#products .product-tag { font-size:.875rem; letter-spacing:.04em; }
+#products .gallery-caption { font-size:.75rem; color:#51454b; }
+#products .note, #products .price-link { font-size:.875rem; }
+.section-sub, .feature-band p, .contact-box p, .modal p { font-size:1rem; }
+.topbar, .links, .btn, .filter, .footer-links a { font-size:1rem; }
+.eyebrow, .category span, .point span, .field label, .art-label span { font-size:.875rem; }
+.search, .field input, .field select, .field textarea { font-size:1rem; min-height:44px; }
+.btn, .filter, .menu, .close, .cart-qty button, .cart-x, .lb-close, .lb-nav { min-height:44px; min-width:44px; }
+.price-table { font-size:.875rem; }
+.price-note { font-size:.875rem !important; }
+:where(a,button,input,select,textarea,[tabindex]):focus-visible {
+  outline:3px solid #174ea6; outline-offset:3px;
+}
+@media(max-width:1000px) {
+  #products.grid { grid-template-columns:1fr; }
+  #products .product-visual img { height:160px; }
+}
+@media(max-width:620px) {
+  #products.grid { grid-template-columns:1fr; gap:18px; }
+  #products .product { grid-template-columns:minmax(0,1fr); }
+  #products .product-visual,
+  #products .product:nth-child(3n+2) .product-visual,
+  #products .product:nth-child(3n) .product-visual {
+    min-height:390px; padding:52px 18px 30px; gap:10px;
+  }
+  #products .product-visual img { height:150px; }
+  #products .product-info { padding:20px; }
+  #products .product h3 { font-size:1.625rem; }
+  #products .product-desc { font-size:1rem; }
+  #products .small-btn { width:100%; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .product, .btn { transition:none; }
+  .product:hover, .btn:hover { transform:none; }
+}
+
+/* Category-specific catalogue layout: men's 2 per row; wigs and toppers 1 per row. */
+#products.grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+#products .product-featured { grid-column:1 / -1; }
+#products .product-featured .product-visual {
+  min-height:520px; padding:48px 20px 34px; gap:14px;
+}
+#products .product-featured .product-visual img {
+  height:205px; width:100%; object-fit:contain; padding:4px;
+}
+/* Men's cards occupy half the row; make photos prominent within each card. */
+#products .product-men {
+  grid-column:span 1;
+  grid-template-columns:minmax(0,1fr);
+  align-content:start;
+}
+#products .product-men .product-visual {
+  min-height:460px; padding:50px 14px 32px; gap:10px;
+}
+#products .product-men .product-visual img {
+  height:180px; width:100%; object-fit:contain; padding:2px;
+}
+#products .product-men .product-info { padding:22px; }
+#products .product-men h3 { font-weight:700; }
+@media(max-width:1000px) {
+  #products.grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #products .product-featured .product-visual { min-height:430px; }
+  #products .product-featured .product-visual img { height:165px; }
+  #products .product-men .product-visual { min-height:350px; }
+  #products .product-men .product-visual img { height:130px; }
+}
+@media(max-width:620px) {
+  #products.grid { grid-template-columns:minmax(0,1fr); }
+  #products .product-featured, #products .product-men { grid-column:1 / -1; }
+  #products .product-featured .product-visual,
+  #products .product-men .product-visual { min-height:420px; padding:48px 12px 32px; }
+  #products .product-featured .product-visual img,
+  #products .product-men .product-visual img { height:165px; }
+}
+
+/* Men's catalogue refinement: horizontal card as in reference screenshot.
+   Wigs and Toppers are intentionally unchanged. */
+@media (min-width: 1001px) {
+  #products .product-men {
+    display:grid;
+    grid-template-columns:minmax(0, 58fr) minmax(0, 42fr);
+    align-items:stretch;
+    align-content:stretch;
+    gap:0;
+  }
+}
+#products .product-men .product-visual {
+  background:#f5f5f5;
+  min-height:430px;
+  padding:44px 8px 25px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  gap:5px;
+}
+#products .product-men .product-visual img {
+  width:100%;
+  height:100%;
+  max-height:185px;
+  object-fit:contain;
+  object-position:center;
+  padding:0;
+  background:transparent;
+  mix-blend-mode:normal;
+}
+#products .product-men .product-info { padding:22px 16px; }
+#products .product-men h3 { font-weight:700; }
+@media (min-width: 621px) and (max-width:1000px) {
+  #products .product-men {
+    grid-template-columns:minmax(0,58fr) minmax(0,42fr);
+    align-items:stretch;
+    align-content:stretch;
+  }
+  #products .product-men .product-visual { min-height:390px; }
+  #products .product-men .product-visual img { max-height:160px; }
+}
+@media (max-width:620px) {
+  #products .product-men { grid-template-columns:minmax(0,1fr); }
+  #products .product-men .product-visual { min-height:420px; padding:46px 10px 28px; }
+  #products .product-men .product-visual img { max-height:175px; }
+}
+
+/* Final Men's layout only. Wigs and Toppers styles remain unchanged.
+   Hair Systems now uses their existing full-width featured-card layout. */
+@media (min-width: 1001px) {
+  #products .product-men {
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+    gap: 0;
+    align-items: stretch;
+  }
+}
+#products .product-men .product-visual {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: minmax(240px, 1fr) 78px;
+  gap: 7px;
+  min-height: 370px;
+  padding: 46px 8px 28px;
+  background: #f5f5f5;
+}
+#products .product-men .product-visual img {
+  width: 100%; height: 100%; max-height: none;
+  object-fit: contain; object-position: center;
+  padding: 0; background: #fff; mix-blend-mode: normal;
+}
+#products .product-men .product-visual img:first-of-type {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+#products .product-men .product-visual img:nth-of-type(n+5) { display:none; }
+#products .product-men .product-info { min-width: 0; padding: 22px 16px; }
+#products .product-men h3 { font-weight: 700; }
+@media (min-width: 621px) and (max-width: 1000px) {
+  #products .product-men { grid-template-columns: minmax(0, 50%) minmax(0, 50%); gap: 0; }
+  #products .product-men .product-visual { min-height: 350px; grid-template-rows: minmax(200px,1fr) 64px; }
+}
+@media (max-width: 620px) {
+  #products .product-men { grid-template-columns: minmax(0, 1fr); }
+  #products .product-men .product-visual {
+    min-height: 420px;
+    grid-template-rows: minmax(265px, 1fr) 76px;
+    padding: 48px 12px 28px;
+  }
+}
+
+/* Accessible desktop hover image preview — does not change catalogue card layouts */
+.hover-photo-preview{position:fixed;z-index:190;display:none;pointer-events:none;width:min(390px,42vw);height:min(440px,70vh);padding:12px;border:1px solid #cfcfcf;border-radius:16px;background:#fff;box-shadow:0 18px 55px rgba(0,0,0,.25);overflow:hidden}
+.hover-photo-preview.is-visible{display:flex;align-items:center;justify-content:center}
+.hover-photo-preview img{display:block;width:100%;height:100%;object-fit:contain;background:#f5f5f5}
+@media(hover:none),(pointer:coarse){.hover-photo-preview{display:none!important}}
+@media(prefers-reduced-motion:reduce){.hover-photo-preview{transition:none}}
 </style>
 <script src="https://js.stripe.com/dahlia/stripe.js"></script>
 </head>
@@ -395,7 +594,7 @@ function closePrices(){document.getElementById('priceModal').classList.remove('s
 function renderProducts(){
  const q=document.getElementById('search').value.toLowerCase();
  const list=products.filter(p=>(!p.hidden||SHOW_TEST)&&(currentFilter==="All"||p.category===currentFilter)&&(`${p.name} ${p.category} ${p.type} ${p.detail}`).toLowerCase().includes(q));
- document.getElementById('products').innerHTML=list.map((p)=>`<article class="product"><div class="product-visual"><span class="product-tag">${p.category}</span>${(p.images||[p.image]).map((img,i)=>`<img src="${IMG[img]||'images/'+img}" alt="${p.name} catalogue view ${i+1}" loading="lazy">`).join('')}<span class="gallery-caption">Catalogue views</span></div><div class="product-info"><div class="product-type">${p.type}</div><h3>${p.name}</h3><div class="product-desc">${p.detail}</div><div class="product-bottom"><span class="price">${priceLabel(p.name)}${PRICES[p.name]?`<br><a class="price-link" href="javascript:void(0)" onclick="openPrices('${p.name.replace(/'/g,"\\'")}')">View prices</a>`:''}</span><button class="small-btn" onclick="openOptions('${p.name.replace(/'/g,"\\'")}')">Add to cart +</button></div><div class="note">${p.options}</div></div></article>`).join('')||'<p>No matching products. Try another search.</p>';
+ document.getElementById('products').innerHTML=list.map((p)=>`<article class="product ${p.category === "Men" ? "product-men" : (p.category === "Wigs" || p.category === "Toppers" || p.category === "Hair Systems") ? "product-featured" : ""}"><div class="product-visual"><span class="product-tag">${p.category}</span>${(p.images||[p.image]).map((img,i)=>`<img src="${IMG[img]||'images/'+img}" alt="${p.name} catalogue view ${i+1}" loading="lazy">`).join('')}<span class="gallery-caption">Catalogue views</span></div><div class="product-info"><div class="product-type">${p.type}</div><h3>${p.name}</h3><div class="product-desc">${p.detail}</div><div class="product-bottom"><span class="price">${priceLabel(p.name)}${PRICES[p.name]?`<br><a class="price-link" href="javascript:void(0)" onclick="openPrices('${p.name.replace(/'/g,"\\'")}')">View prices</a>`:''}</span><button class="small-btn" onclick="openOptions('${p.name.replace(/'/g,"\\'")}')">Add to cart +</button></div><div class="note">${p.options}</div></div></article>`).join('')||'<p>No matching products. Try another search.</p>';
 }
 function setFilter(f){currentFilter=f;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));renderProducts()}
 function openQuote(type){if(type)document.getElementById('enquiryType').value=type;document.getElementById('quoteList').textContent=cart.length?cartLines().map((x,i)=>(i+1)+'. '+x).join('\n'):'No products selected yet. You can still send a general enquiry.';document.getElementById('quoteModal').classList.add('show')}
@@ -482,5 +681,43 @@ async function openCheckout(){
 }
 document.getElementById('year').textContent=new Date().getFullYear();
 renderProducts();
+</script>
+
+<script>
+/* Hover preview: delegated listeners work with dynamically rendered catalogue cards.
+   Existing click-to-open lightbox remains unchanged for touch and keyboard users. */
+(function(){
+  if(!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const preview=document.createElement('div');
+  preview.className='hover-photo-preview';
+  preview.setAttribute('aria-hidden','true');
+  const big=document.createElement('img');
+  big.alt='';
+  preview.appendChild(big);
+  document.body.appendChild(preview);
+  let active=null;
+  function hide(){active=null;preview.classList.remove('is-visible');big.removeAttribute('src');}
+  function position(e){
+    const margin=14,offset=22;
+    const w=preview.offsetWidth,h=preview.offsetHeight;
+    const x=(e.clientX+offset+w+margin<=innerWidth)?e.clientX+offset:e.clientX-offset-w;
+    const y=Math.max(margin,Math.min(e.clientY-h/2,innerHeight-h-margin));
+    preview.style.left=Math.max(margin,Math.min(x,innerWidth-w-margin))+'px';
+    preview.style.top=y+'px';
+  }
+  document.addEventListener('pointerover',function(e){
+    const img=e.target.closest && e.target.closest('.product-visual img');
+    if(!img || e.pointerType!=='mouse') return;
+    if(active!==img){active=img;big.src=img.currentSrc||img.src;preview.classList.add('is-visible');}
+    position(e);
+  });
+  document.addEventListener('pointermove',function(e){if(active && e.pointerType==='mouse')position(e);});
+  document.addEventListener('pointerout',function(e){
+    if(active && e.target===active && e.relatedTarget!==active)hide();
+  });
+  document.addEventListener('scroll',hide,true);
+  window.addEventListener('blur',hide);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')hide();});
+})();
 </script>
 </body></html>
