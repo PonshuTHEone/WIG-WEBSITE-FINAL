@@ -59,7 +59,7 @@ exports.handler = async (event) => {
     ui_mode: "form",
     billing_address_collection: "required",
     phone_number_collection: { enabled: true },
-    automatic_tax: { enabled: true },
+    automatic_tax: { enabled: TAX_ON},
     submit_type: "auto",
     integration_identifier: "custom_embedded_web_0001",
     mode,
