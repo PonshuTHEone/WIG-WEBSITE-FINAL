@@ -83,8 +83,8 @@ exports.handler = async (event) => {
   const sessionParams = {
     ui_mode: "form",
     billing_address_collection: "auto",
-    phone_number_collection: { enabled: false },
-    automatic_tax: { enabled: TAX_ON },
+    phone_number_collection: { enabled: true },
+    automatic_tax: { enabled: true },
     shipping_address_collection: { allowed_countries: ["CA"] },
     shipping_options: [{ shipping_rate_data }],
     submit_type: "auto",
