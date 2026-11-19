@@ -57,9 +57,9 @@ exports.handler = async (event) => {
 
   const sessionParams = {
     ui_mode: "form",
-    billing_address_collection: "auto",
-    phone_number_collection: { enabled: false },
-    automatic_tax: { enabled: false },
+    billing_address_collection: "required",
+    phone_number_collection: { enabled: true },
+    automatic_tax: { enabled: true },
     submit_type: "auto",
     integration_identifier: "custom_embedded_web_0001",
     mode,
